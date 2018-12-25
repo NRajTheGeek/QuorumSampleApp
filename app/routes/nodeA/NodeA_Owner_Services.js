@@ -80,11 +80,11 @@ const createItem = function(name, price, whichNode, res) {
     });
 };
 
-const getBid = function(name, whichNode, res) {
+const getBid = function(name, bidderAddress, whichNode, res) {
   let contract = bidderEnum[whichNode];
   contract.deployed()
     .then(function(instance) {
-      return instance.getBidsForItem.call(name);
+      return instance.getBidsForItem.call(name, bidderAddress);
     })
     .then(
       function(result) {

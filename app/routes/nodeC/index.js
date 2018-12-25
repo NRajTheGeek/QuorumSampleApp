@@ -26,9 +26,10 @@ router.get("/placeBid/item/:itemName/price/:bidPrice", function(req, res, next) 
   let bidPrice = parseInt(req.params.bidPrice);
   contractService.placeBid(itemName, bidPrice, res);
 });
-router.get("/getBid/item/:itemName", function(req, res, next) {
+router.get("/getBid/item/:itemName/bidderAddress/:bidderAddress", function(req, res, next) {
   console.log("came to get the bid");
   let itemName = req.params.itemName;
-  contractService.getBid(itemName, res);
+  let bidderAddress = req.params.bidderAddress;
+  contractService.getBid(itemName, bidderAddress, res);
 });
 module.exports = router;

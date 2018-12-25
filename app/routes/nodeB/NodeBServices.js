@@ -30,10 +30,10 @@ const getItemPriceByName = function(name, res) {
     );
 };
 
-const getBid = function(name, res) {
+const getBid = function(name, bidderAddress, res) {
   Contract.deployed()
     .then(function(instance) {
-      return instance.getBidsForItem.call(name);
+      return instance.getBidsForItem.call(name, bidderAddress);
     })
     .then(
       function(result) {

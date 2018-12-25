@@ -13,12 +13,17 @@ contract NodeB {
         Items["crazy_monkey"] = 1200;
         owner = msg.sender;
     }
-
-    mapping (string => uint) Items;
-    mapping (address => mapping (string => Bids)) addressBids;
-
+    
     modifier onlyOwner(address _owner) {
         require(_owner == owner, "cannot perform action.");
+        _;
+    }
+
+    mapping (string => uint) Items;
+    mapping (string => mapping (address => Bids)) itemAddressBids;
+
+    modifier addressNotBlank(address add){
+        require(add != 0x0, "null address");
         _;
     }
 
@@ -47,14 +52,19 @@ contract NodeB {
         require(bid > Items[name], "the bid should exceed the price.");
         
         Bids memory bids = Bids(name, bid, msg.sender);
-        addressBids[msg.sender][name] = bids;
+        itemAddressBids[name][msg.sender] = bids;
     }
     
     function getItemPrice(string memory name) public view returns (uint itemPrice){
         return Items[name];
     }
     
-    function getBidsForItem(string memory name) public view returns (string memory itemName, uint latestUserBid){
-        return (addressBids[msg.sender][name].itemName, addressBids[msg.sender][name].bid);
+    function getBidsForItem(string memory name, address bidderAddress) 
+    public 
+    addressNotBlank(bidderAddress)
+    view 
+    returns (string memory itemName, uint latestUserBid)
+    {
+        return (itemAddressBids[name][bidderAddress].itemName, itemAddressBids[name][bidderAddress].bid);
     }
 }

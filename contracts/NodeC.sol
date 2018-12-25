@@ -20,7 +20,12 @@ contract NodeC {
     }
 
     mapping (string => uint) Items;
-    mapping (address => mapping (string => Bids)) addressBids;
+    mapping (string => mapping (address => Bids)) itemAddressBids;
+
+    modifier addressNotBlank(address add){
+        require(add != 0x0, "null address");
+        _;
+    }
 
     modifier nullStringCheck(string memory val){
         require(bytes(val).length > 0, "empty string");
@@ -47,14 +52,19 @@ contract NodeC {
         require(bid > Items[name], "the bid should exceed the price.");
         
         Bids memory bids = Bids(name, bid, msg.sender);
-        addressBids[msg.sender][name] = bids;
+        itemAddressBids[name][msg.sender] = bids;
     }
     
     function getItemPrice(string memory name) public view returns (uint itemPrice){
         return Items[name];
     }
     
-    function getBidsForItem(string memory name) public view returns (string memory itemName, uint latestUserBid){
-        return (addressBids[msg.sender][name].itemName, addressBids[msg.sender][name].bid);
+    function getBidsForItem(string memory name, address bidderAddress) 
+    public 
+    addressNotBlank(bidderAddress)
+    view 
+    returns (string memory itemName, uint latestUserBid)
+    {
+        return (itemAddressBids[name][bidderAddress].itemName, itemAddressBids[name][bidderAddress].bid);
     }
 }

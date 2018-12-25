@@ -19,11 +19,12 @@ router.get("/getItemPrice/:itemName/node/:whichNode", function(req, res, next) {
   contractService.getItemPriceByName(itemName, whichNode, res); 
 });
 
-router.get("/getBid/item/:itemName/node/:whichNode", function(req, res, next) {
+router.get("/getBid/item/:itemName/bidderAddress/:bidderAddress/node/:whichNode", function(req, res, next) {
   console.log("came to get the bid");
   let itemName = req.params.itemName;
   let whichNode = req.params.whichNode;
-  contractService.getBid(itemName, whichNode, res);
+  let bidderAddress = req.params.bidderAddress;
+  contractService.getBid(itemName, bidderAddress, whichNode, res);
 });
 
 module.exports = router;
