@@ -1,4 +1,11 @@
 {
-    "itemNames": [],
-    "items": []
+    "itemNames": [
+        "silly_billy"
+    ],
+    "items": [
+        {
+            "itemName": "silly_billy",
+            "itemPrice": 1200
+        }
+    ]
 }
