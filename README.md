@@ -183,8 +183,6 @@ contract NodeB {
 ```
 ## 5. How Quorum Is Maintaining the Privacy
 
-
-
 Image below is from the official quorum repo:-
 
 ![from the official quorum repo](https://raw.githubusercontent.com/jpmorganchase/quorum-docs/master/images/QuorumTransactionProcessing.JPG)
@@ -311,10 +309,26 @@ Now the server has started, aps can be accessed at localhost on port 3000.
 
 To interact with the APIs there is a Swagger UI hosted which dobles as a clean documentation for this server's APIs.
 
-go to the following link at your browser.
+Go to the following link at your browser.
 
 ```
 localhost:3000/swagger
 ```
-Now 
-## 10. Conclusion and what next?
+Now first 
+   NodeA user must craete an Item with a price for both the nodes: nodeB and nodeC
+       So the accounts on nodeB and NodeC can view this item and the base price and thus a bid can be placed agains the base price.
+   Now, from swagger UI 
+   1. nodeA will create an item with a non-zero using the *createItem* post API for both nodeB and nodeC.
+   2. nodeB/nodeC can view this item and its base price from swagger UI with the API of *getIemPrice* to place a bid using the name of the item as identifier (item name).
+   3. Now nodeB/nodeC user can place an itegeral bid price higher than the base price of the item from the swagger UI using the *placeBid* API
+   
+   #### Note: The use case of the Quorum protocol allow us to hide the bid of nodeB user from nodeC user, using the txManagers.
+   
+
+## 10. Conclusion
+
+Now the bid placed by the user/account nodeB can not see the bid placed by the user/account of nodeC which maintains the privacy of info among these node's users/acounts with the nodeA users.
+
+##  What next?
+This is just to demo the concept of the private transactions over the quorum blockchain network and it is promising in this regard.
+We obviously need to improve this alot if we want to make an awesome demo app but even in the current stag it proves the concept.
