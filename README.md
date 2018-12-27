@@ -238,7 +238,7 @@ before moving on further, go through this link and study how to deploy solidity 
 https://truffleframework.com/tutorials/building-dapps-for-quorum-private-enterprise-blockchains
 
 
-## 7. Steps to Deploy the Smart Contracts for he Bidder Dapp
+## 7. Steps to Deploy the Smart Contracts for the Bidder Dapp
 
 *Bofore moving forward install truffle globaly with npm.*
 ```
