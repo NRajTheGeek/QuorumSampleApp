@@ -1,0 +1,572 @@
+swagger: '2.0'
+info:
+  version: 1.0.2
+  title: Quorum Dapp Sample
+  description: Just a simple Dapp
+  contact:
+    name: Dapp
+    url: 'http://localhost:3000'
+host: 'localhost:3000'
+basePath: /
+schemes:
+  - http
+
+paths:
+  /nodeA/getAllItems:
+    get:
+      tags:
+        - NodeA Controller
+      summary: This api is used to fetch list of all items
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /nodeA/createItem/itemName/{name}/itemPrice/{price}/node/{whichNode}:
+    post:
+      tags:
+        - NodeA Controller
+      summary: This api is used for creating an item resource with a base price for a perticular node
+      produces:
+        - applicaton/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        - name: price
+          in: path
+          type: number
+          required: true
+        - name: whichNode
+          in: path
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'  
+  /nodeA/getBid/item/{itemName}/bidderAddress/{bidderAddress}/node/{whichNode}:
+    get:
+      tags:
+        - NodeA Controller
+      summary: This api is used to fetch bid placed against the base price of an item by a bidder on a node
+      produces:
+        - applicaton/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: itemName
+          in: path
+          type: string
+          required: true
+        - name: bidderAddress
+          in: path
+          type: string
+          required: true
+        - name: whichNode
+          in: path
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse' 
+
+  /nodeA/getItemPrice/{itemName}/node/{whichNode}:
+    get:
+      tags:
+        - NodeA Controller
+      summary: This api is used to fetch item price by item name for a node
+      produces:
+        - applicaton/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: itemName
+          in: path
+          type: string
+          required: true
+        - name: whichNode
+          in: path
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /nodeB/getAllItems:
+    get:
+      tags:
+        - NodeB Controller
+      summary: This api is used to fetch list of all items
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  
+  /nodeB/getItemPrice/{itemName}:
+    get:
+      tags:
+        - NodeB Controller
+      summary: This api is used to fetch item price by item name
+      produces:
+        - applicaton/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: itemName
+          in: path
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /nodeB/placeBid/item/{itemName}/price/{bidPrice}/bidderAddress/{bidderAddress}:
+    post:
+      tags:
+        - NodeB Controller
+      summary: This api is used to place a bid against an existing item
+      produces:
+        - applicaton/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: itemName
+          in: path
+          type: string
+          required: true
+        - name: bidPrice
+          in: path
+          type: number
+          required: true
+        - name: bidderAddress
+          in: path
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /nodeB/getBid/item/{itemName}/bidderAddress/{bidderAddress}:
+    get:
+      tags:
+        - NodeB Controller
+      summary: This api is used to fetch the bid placed agains an item by a bidder on nodeB
+      produces:
+        - applicaton/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: itemName
+          in: path
+          type: string
+          required: true
+        - name: bidderAddress
+          in: path
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /nodeC/getAllItems:
+    get:
+      tags:
+        - NodeC Controller
+      summary: This api is used to fetch list of all items
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /nodeC/getItemPrice/{itemName}:
+    get:
+      tags:
+        - NodeC Controller
+      summary: This api is used to fetch item price by item name
+      produces:
+        - applicaton/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: itemName
+          in: path
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /nodeC/placeBid/item/{itemName}/price/{bidPrice}/bidderAddress/{bidderAddress}:
+    post:
+      tags:
+        - NodeC Controller
+      summary: This api is used to place a bid against an existing item
+      produces:
+        - applicaton/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: itemName
+          in: path
+          type: string
+          required: true
+        - name: bidPrice
+          in: path
+          type: number
+          required: true
+        - name: bidderAddress
+          in: path
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /nodeC/getBid/item/{itemName}/bidderAddress/{bidderAddress}:
+    get:
+      tags:
+        - NodeC Controller
+      summary: This api is used to fetch the bid placed agains an item by a bidder on nodeC
+      produces:
+        - applicaton/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: itemName
+          in: path
+          type: string
+          required: true
+        - name: bidderAddress
+          in: path
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+#   /users/signup:
+#     post:
+#       tags:
+#         - User Controller
+#       summary: This api is used to signup new user
+#       operationId: userSignup
+#       produces:
+#         - applicaton/json
+#       consumes:
+#         - application/x-www-form-urlencoded
+#       parameters:
+#         - name: name
+#           in: formData
+#           type: string
+#           required: true
+#         - name: emailId
+#           in: formData
+#           type: string
+#           required: true
+#         - name: password
+#           in: formData
+#           type: string
+#           required: true
+#         - name: loginType
+#           in: formData
+#           type: string
+#           description: >-
+#             loginType Normal for non social signup. For Facebook loginType is
+#             Facebook
+#         - name: socialId
+#           in: formData
+#           type: string
+#           description: Social Id issued by social media. Normal signup blank key.
+#         - name: socialToken
+#           in: formData
+#           type: string
+#           description: Social token issued by social media. Normal signup blank key.
+#       responses:
+#         '200':
+#           description: Success
+#           schema:
+#             $ref: '#/definitions/SuccessResponse'
+#         default:
+#           description: Error
+#           schema:
+#             $ref: '#/definitions/ErrorResponse'
+#   /users/login:
+#     post:
+#       tags:
+#         - User Controller
+#       summary: 'This api is used to login, On success this api return access token.'
+#       operationId: userLogin
+#       produces:
+#         - applicaton/json
+#       consumes:
+#         - application/x-www-form-urlencoded
+#       parameters:
+#         - name: emailId
+#           in: formData
+#           type: string
+#           required: true
+#         - name: password
+#           in: formData
+#           type: string
+#           required: true
+#         - name: loginType
+#           in: formData
+#           type: string
+#           description: >-
+#             loginType Normal for non social login. For Facebook loginType is
+#             Facebook
+#         - name: socialId
+#           in: formData
+#           type: string
+#           description: Social Id issued by social media. Normal signup blank key.
+#         - name: socialToken
+#           in: formData
+#           type: string
+#           description: Social token issued by social media. Normal signup blank key.
+#       responses:
+#         '200':
+#           description: Success
+#           schema:
+#             $ref: '#/definitions/SuccessResponse'
+#         default:
+#           description: Error
+#           schema:
+#             $ref: '#/definitions/ErrorResponse'
+#   /users/verifyEmail:
+#     put:
+#       tags:
+#         - User Controller
+#       summary: This api is used to verify email
+#       operationId: userVerifyEmail
+#       produces:
+#         - applicaton/json
+#       consumes:
+#         - application/x-www-form-urlencoded
+#       parameters:
+#         - name: emailId
+#           in: formData
+#           type: string
+#           required: true
+#         - name: verificationToken
+#           in: formData
+#           type: string
+#           required: true
+#       responses:
+#         '200':
+#           description: Success
+#           schema:
+#             $ref: '#/definitions/SuccessResponse'
+#         default:
+#           description: Error
+#           schema:
+#             $ref: '#/definitions/ErrorResponse'
+#   /users/forgotPassword:
+#     put:
+#       tags:
+#         - User Controller
+#       summary: This api is used to reset using email Id.
+#       operationId: userForgotPassword
+#       produces:
+#         - applicaton/json
+#       consumes:
+#         - application/x-www-form-urlencoded
+#       parameters:
+#         - name: emailId
+#           in: formData
+#           type: string
+#           required: true
+#       responses:
+#         '200':
+#           description: Success
+#           schema:
+#             $ref: '#/definitions/SuccessResponse'
+#         default:
+#           description: Error
+#           schema:
+#             $ref: '#/definitions/ErrorResponse'
+#   /users/setPassword:
+#     put:
+#       tags:
+#         - User Controller
+#       summary: This api is used to set new password.
+#       operationId: userSetPassword
+#       produces:
+#         - applicaton/json
+#       consumes:
+#         - application/x-www-form-urlencoded
+#       parameters:
+#         - name: emailId
+#           in: formData
+#           type: string
+#           required: true
+#         - name: passwordResetToken
+#           in: formData
+#           type: string
+#           required: true
+#         - name: newPassword
+#           in: formData
+#           type: string
+#           required: true
+#           description: 'Note:- Password must be between 6 to 15 char.'
+#       responses:
+#         '200':
+#           description: Success
+#           schema:
+#             $ref: '#/definitions/SuccessResponse'
+#         default:
+#           description: Error
+#           schema:
+#             $ref: '#/definitions/ErrorResponse'
+#   /users/changePassword:
+#     put:
+#       tags:
+#         - User Controller
+#       summary: This api is used to change password.
+#       operationId: userChangePassword
+#       produces:
+#         - applicaton/json
+#       security:
+#         - JWT: []
+#       consumes:
+#         - application/x-www-form-urlencoded
+#       parameters:
+#         - name: oldPassword
+#           in: formData
+#           type: string
+#           required: true
+#         - name: newPassword
+#           in: formData
+#           type: string
+#           required: true
+#       responses:
+#         '200':
+#           description: Success
+#           schema:
+#             $ref: '#/definitions/SuccessResponse'
+#         default:
+#           description: Error
+#           schema:
+#             $ref: '#/definitions/ErrorResponse'
+#   /events:
+#     get:
+#       tags:
+#         - Event Controller
+#       summary: This api is used to fetch list of event in Reignite
+#       operationId: eventList
+#       produces:
+#         - application/json
+#       responses:
+#         '200':
+#           description: Success
+#           schema:
+#             $ref: '#/definitions/SuccessResponse'
+#         default:
+#           description: Error
+#           schema:
+#             $ref: '#/definitions/ErrorResponse'
+#   /../..:
+#     get:
+#       tags:
+#         - Server Endpoint
+#       summary: This api is used to check server is running or not
+#       operationId: serverRunning
+#       produces:
+#         - text/plain
+#       responses:
+#         default:
+#           description: Return server running status.
+# definitions:
+#   SuccessResponse:
+#     type: object
+#     properties:
+#       status:
+#         type: string
+#         example: success
+#       message:
+#         type: string
+#         example: Success Message.
+#       data:
+#         type: object
+#         description: Required result object or array of data.
+#   ErrorResponse:
+#     type: object
+#     properties:
+#       status:
+#         type: string
+#         example: error
+#       message:
+#         type: string
+#         description: Error message.
+#         example: Network error found. Please try after some time.

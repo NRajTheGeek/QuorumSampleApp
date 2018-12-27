@@ -4,6 +4,7 @@ const path = require("path");
 let NodeC = require(path.join(__dirname, "../../../build/contracts/NodeC.json"));
 
 let provider = new Web3.providers.HttpProvider("http://localhost:22002");
+const OtherService = require('../nodeA/NodeA_Owner_Services');
 
 let Contract = contract(NodeC);
 Contract.setProvider(provider);
@@ -46,13 +47,13 @@ const getBid = function(name, bidderAddress, res) {
     );
 };
 
-const placeBid = function(name, bidPrice, res) {
+const placeBid = function(name, bidPrice, bidderAddress, res) {
   Contract.deployed()
     .then(function(instance) {
       console.log(`Setting value to ${bidPrice}...`);
       return instance.placeABid(name, bidPrice, {
         privateFor: ['BULeR8JyUWhiuuCMU/HLA0Q5pzkYT+cHII3ZKBey3Bo='],
-        from: "0x0fbdc686b912d7722dc86510934589e0aaf3b55a"
+        from: bidderAddress
       });
     })
     .then(function(result) {
@@ -68,8 +69,21 @@ const placeBid = function(name, bidPrice, res) {
     });
 };
 
+const getItems = function(res){
+
+  OtherService.getJsonContent(path.join(__dirname, '../nodeA/itemList.json'))
+  .then(jsonData => {
+    res.send(jsonData.items);
+  })
+  .catch(error => {
+    console.log(error);    
+    res.send(error);
+  })
+}
+
 module.exports = {
   getItemPriceByName,
   getBid,
-  placeBid
+  placeBid,
+  getItems
 };

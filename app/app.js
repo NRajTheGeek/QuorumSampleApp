@@ -1,10 +1,22 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var debug = require('debug')('app:server');
-var http = require('http');
+var createError         = require('http-errors');
+var express             = require('express');
+var path                = require('path');
+var cookieParser        = require('cookie-parser');
+var logger              = require('morgan');
+var debug               = require('debug')('app:server');
+var http                = require('http');
+var swaggerJSDoc        = require('swagger-jsdoc');
+var fs                  = require('fs');
+var swaggerUi           = require('swagger-ui-express');
+var yaml                = require('js-yaml');
+var swaggerDoc          = yaml.safeLoad(fs.readFileSync(path.join(__dirname, '../swagger.yaml')));
+
+//correcting swagger host and base path
+(function (){
+  console.log("updating swagger");
+  swaggerDoc.host = "localhost:3000";
+  swaggerDoc.basePath = '/';
+})();
 
 var bidderARouter = require('./routes/nodeB');
 var bidderBRouter = require('./routes/nodeC');
@@ -21,6 +33,15 @@ app.use('/nodeA', ownerRouter);
 app.use('/nodeB', bidderARouter); 
 app.use('/nodeC', bidderBRouter);
 
+//------------------------------------------------ Swagger Stuffs ---------------------------------------
+
+/**
+* Swagger Documents
+*/
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+app.use('/',	require('./routes/index.js')); //Call all document API routes
+
+//-------------------------------------------------------------------------------------------------------
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

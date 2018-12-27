@@ -3,7 +3,7 @@ var router = express.Router();
 const contractService = require("./NodeA_Owner_Services");
 
 /* GET users listing. */
-router.get("/createItem/itemName/:name/itemPrice/:price/node/:whichNode", function(req, res, next) {
+router.post("/createItem/itemName/:name/itemPrice/:price/node/:whichNode", function(req, res, next) {
   let price = parseInt(req.params.price);
   let name = req.params.name;
   let whichNode = req.params.whichNode;
@@ -25,6 +25,10 @@ router.get("/getBid/item/:itemName/bidderAddress/:bidderAddress/node/:whichNode"
   let whichNode = req.params.whichNode;
   let bidderAddress = req.params.bidderAddress;
   contractService.getBid(itemName, bidderAddress, whichNode, res);
+});
+
+router.get("/getAllItems", function(req, res, next){
+  contractService.getItems(res);
 });
 
 module.exports = router;

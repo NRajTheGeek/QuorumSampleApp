@@ -10,7 +10,6 @@ contract NodeB {
     address private owner;
     
     constructor() public {
-        Items["crazy_monkey"] = 1200;
         owner = msg.sender;
     }
     
@@ -45,14 +44,14 @@ contract NodeB {
         Items[name] = price;
     }
     
-    function placeABid(string memory name, uint bid) public 
+    function placeABid(string memory name, uint bid, address bidderAddress) public 
     nullStringCheck(name) 
     uintNonZero(bid)
     {
         require(bid > Items[name], "the bid should exceed the price.");
         
-        Bids memory bids = Bids(name, bid, msg.sender);
-        itemAddressBids[name][msg.sender] = bids;
+        Bids memory bids = Bids(name, bid, bidderAddress);
+        itemAddressBids[name][bidderAddress] = bids;
     }
     
     function getItemPrice(string memory name) public view returns (uint itemPrice){
