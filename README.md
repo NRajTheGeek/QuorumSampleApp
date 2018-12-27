@@ -24,13 +24,42 @@
 Its a simple dapp demo over `Quorum Blockchain`, which utilizes a `dockerized` environment to host the Quorum Blockchain and have its smart contracts written in `Solidity 0.4.17` and handles deployments with `truffle smart contract deployment/development framework` and it has a `NodeJS server` to serve the APIs for feature interactions with the smart contract and it has a `Swagger UI` to provide UI interface / Documentation.
 
 ## 2. Network Architecture:-
-There is a dockerized environment cloned from quorum's official repo for maintaining the dockerized environment for the quorum dapp network.
+There is a dockerized environment forked from quorum's official repo for maintaining the dockerized environment for the quorum dapp network.
 
-Basically there are 7 Nodes, and their respective tx managers, for further details yu can study the docker-compose file attached in this sample project.
+Basically there are 7 Nodes, and their respective tx managers, for further details you can study the docker-compose file attached in this sample project.
 
 ## 3. The Flow and Idea
 
+*The Bidder DApp:*
+Our Sample Dapp basically utilizes, 
 
+* Three quorum nodes
+  * NodeA
+  * NodeB
+  * NodeC
+
+NodeA will be the owner of the item to be placed bids for and to allow the users to do that it first had to create that item with a non-zero base price.
+Now, NodeB and NodeC user/account can place a bid against the base price of the item.
+Because we have two separate smart contarcts deployed with the truffle migration file
+
+```
+var NodeB = artifacts.require("./NodeB.sol");
+var NodeC = artifacts.require("./NodeC.sol");
+
+module.exports = function(deployer) {
+  deployer.deploy(NodeB, {
+    privateFor: ["QfeDAys9MPDs2XHExtc84jKGHxZg/aj52DTh0vtA3Xc="]
+  });
+
+  deployer.deploy(NodeC, {
+    privateFor: ["1iTZde/ndBHvzhcl7V68x44Vx7pl8nwx9LqnM/AfJUg="]
+  });
+};
+```
+
+Here you can see that NodeB smart contract is deployed with an additional parameter of *privateFor* with the public key of the NodeB *QfeDAys9MPDs2XHExtc84jKGHxZg/aj52DTh0vtA3Xc=* as its value which means all transactions on this smart contract will be private among the nodeA (as we are deploying smart contarcts from the user/account of nodeA) and nodeB, the other users/accounts of other nodes will not be able to see the transactions made by other nodeB's users.
+
+similarly we have deployed smart contract NodeC with the public key of the nodeC.
 
 ## 4. Smart Contract
 
@@ -332,3 +361,7 @@ Now the bid placed by the user/account nodeB can not see the bid placed by the u
 ##  What next?
 This is just to demo the concept of the private transactions over the quorum blockchain network and it is promising in this regard.
 We obviously need to improve this alot if we want to make an awesome demo app but even in the current stag it proves the concept.
+
+If You have Ideas of improvement please email me at:
+
+rajputneerajkumar815@gmail.com
