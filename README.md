@@ -30,6 +30,8 @@ Basically there are 7 Nodes, and their respective tx managers, for further detai
 
 ## 3. The Flow and Idea
 
+
+
 ## 4. Smart Contract
 
 #### For NodeB
@@ -211,16 +213,20 @@ https://truffleframework.com/tutorials/building-dapps-for-quorum-private-enterpr
 
 ## 7. Steps to Deploy the Smart Contracts for he Bidder Dapp
 
-There are two smart contracts in the 
+*Bofore moving forward install truffle globaly with npm.*
+```
+npm install truffle -g
+```
+Now, there are two smart contracts in the contracts directory:
 ```
 contracts
    Migrations.sol
    NodeB.sol
    NodeC.sol
 ```
-which are displayed above.
+which are displayed above at the 4th index [smart contracts].
 
-lets have a look on out *truffle.json file*
+lets have a look on our *truffle.json file*
 ```
 
 module.exports = {
@@ -258,11 +264,11 @@ module.exports = {
 
 ```
 
-now to deploy these using truffle framework first do a compile from the project root directory
+Now to deploy these using truffle framework first do a compile from the project root directory
 ```
 truffle compile
 ```
-now you can deply the smart contract from project root directory
+And now you can deploy the smart contracts from project root directory
 
 ```
 truffle compile --network nodeA
@@ -291,14 +297,24 @@ Saving successful migration to network...
 Saving artifacts...
 ```
 with obviously contract addresses and tx hashes changed.
-Now
+Now you can launch the Node JS server.
 
 ## 8. Steps to start the server
 
-
+From Project root directory
+```
+npm start 
+```
+Now the server has started, aps can be accessed at localhost on port 3000.
 
 ## 9. Swagger for interaction with the server
 
+To interact with the APIs there is a Swagger UI hosted which dobles as a clean documentation for this server's APIs.
 
+go to the following link at your browser.
 
+```
+localhost:3000/swagger
+```
+Now 
 ## 10. Conclusion and what next?
