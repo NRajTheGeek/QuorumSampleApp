@@ -1,5 +1,12 @@
 # QuorumSample_DApp
 
+* _Pre-requisites:_
+  * Docker version 18.09.0+
+  * docker-compose version 1.23.2+ 
+  * Node.js v8.5+
+  * Truffle v4+
+  * IDE of Your choice (preferred is VsCode)
+
 ### Index
 1. Introduction
 2. Network Architecture
@@ -182,14 +189,6 @@ Image below is from the official quorum repo:-
 
 ## 6. Steps to start the Quorum Blockchain
 
-
-
-* Make sure that you have following installed 
-  * Docker version 18.09.0+
-  * docker-compose version 1.23.2+ 
-
-Now, that you have the proper docker and docker-compose installed, we can start now:
-
 First clone this repo into your machine
 ```
 git clone https://github.com/NRajTheGeek/QuorumSampleApp.git
@@ -203,12 +202,96 @@ now to start the dockerized environment and the quorum blockchain 7 node and 7 t
 docker-compose up -d
 ```
 
-now  wait 5 or 10 min for the node to start mining properly
+now wait for 5 or 10 min for all nodes to start mining properly, now that we have the network up and running we can now depoy our smart contracts on it.
+
+before moving on further, go through this link and study how to deploy solidity smart contracts on quorum blockchain nodes.
+
+https://truffleframework.com/tutorials/building-dapps-for-quorum-private-enterprise-blockchains
 
 
 ## 7. Steps to Deploy the Smart Contracts for he Bidder Dapp
 
+There are two smart contracts in the 
+```
+contracts
+   Migrations.sol
+   NodeB.sol
+   NodeC.sol
+```
+which are displayed above.
 
+lets have a look on out *truffle.json file*
+```
+
+module.exports = {
+  networks: {
+    nodeA: {
+      host: '127.0.0.1',
+      port: 22000, 
+      network_id: '*',
+      gasPrice: 0,
+      gas: 4500000
+    },
+    nodeB: {
+      host: '127.0.0.1',
+      port: 22001, 
+      network_id: '*',
+      gasPrice: 0,
+      gas: 4500000
+    },
+    nodeC: {
+      host: '127.0.0.1',
+      port: 22002, 
+      network_id: '*',
+      gasPrice: 0,
+      gas: 4500000
+    },
+    node4: {
+      host: '127.0.0.1',
+      port: 22003, 
+      network_id: '*',
+      gasPrice: 0,
+      gas: 4500000
+    }
+  }
+}
+
+```
+
+now to deploy these using truffle framework first do a compile from the project root directory
+```
+truffle compile
+```
+now you can deply the smart contract from project root directory
+
+```
+truffle compile --network nodeA
+```
+
+you should see output similar to
+```
+Using network 'nodeA'.
+
+Running migration: 1_initial_migration.js
+  Deploying Migrations...
+  ... 0xb62991b10c7c39af1603164a35b7e34dd530e9c933781c8fd9da8465b1f0229e
+  Migrations: 0x1932c48b2bf8102ba33b4a6b545c32236e342f34
+Saving successful migration to network...
+  ... 0x7f6c7e9834a9f52ec1bd026a22303ace02506c767199db7e262089523b4737c7
+Saving artifacts...
+Running migration: 2_deploy_contracts.js
+  Deploying NodeB...
+  ... 0xd47f328fc16eb28fc9e94e36166234252629a702d82ff5369a019ee690d5f8cc
+  NodeB: 0x9d13c6d3afe1721beef56b55d303b09e021e27ab
+  Deploying NodeC...
+  ... 0x5bf35a010b9b779b38210af7347586cabff9faef8bc337fa22e16acc3e2a72a1
+  NodeC: 0xd9d64b7dc034fafdba5dc2902875a67b5d586420
+Saving successful migration to network...
+  ... 0x7fe29077aa04a72a4b85b10c877d5b43fe1bba655fba5d0bace8ac42b67e6e4b
+Saving artifacts...
+```
+with obviously contract addresses and tx hashes changed.
+Now
 
 ## 8. Steps to start the server
 
