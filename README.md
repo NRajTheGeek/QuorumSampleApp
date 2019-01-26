@@ -358,7 +358,7 @@ Now first
 
 Now the bid placed by the user/account nodeB can not see the bid placed by the user/account of nodeC which maintains the privacy of info among these node's users/acounts with the nodeA users.
 
-##  What next?
+##  What's next?
 This is just to demo the concept of the private transactions over the quorum blockchain network and it is promising in this regard.
 We obviously need to improve this alot if we want to make an awesome demo app but even in the current stag it proves the concept.
 
